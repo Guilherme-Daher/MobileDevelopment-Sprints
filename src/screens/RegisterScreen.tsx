@@ -1,4 +1,4 @@
-// src/screens/RegisterScreen.tsx
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
 import {
   View,
@@ -8,7 +8,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
-  Alert
+  Alert,
 } from 'react-native';
 import { useUser } from '../context/UserContext';
 import { useTheme } from '../context/ThemeContext';
@@ -20,26 +20,42 @@ export default function RegisterScreen({ navigation }: any) {
   const [nascimento, setNascimento] = useState('');
 
   const { cadastrar } = useUser();
-  const { theme } = useTheme();  // <-- pega o tema do contexto
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   const handleRegister = async () => {
-    if (!nome || !email || !senha || !nascimento || !nascimento.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+    if (
+      !nome ||
+      !email ||
+      !senha ||
+      !nascimento ||
+      !nascimento.match(/^\d{2}\/\d{2}\/\d{4}$/)
+    ) {
       Alert.alert('Erro', 'Preencha todos os campos corretamente!');
       return;
     }
 
-    const sucesso = await cadastrar({
-      nome,
-      email,
-      senha,
-      nascimento: nascimento.match(/^\d{2}\/\d{2}\/\d{4}$/) ? nascimento : '',
-      idioma: 'pt-BR'
-    });
+    try {
+      const existente = await AsyncStorage.getItem(`usuario:${email}`);
+      if (existente) {
+        Alert.alert('Erro', 'Este e-mail já está cadastrado!');
+        return;
+      }
 
-    if (sucesso) {
+      const novoUsuario = {
+        nome,
+        email,
+        senha,
+        nascimento,
+        idioma: 'pt-BR',
+      };
+
+      await AsyncStorage.setItem(`usuario:${email}`, JSON.stringify(novoUsuario));
+
       Alert.alert('Sucesso', 'Cadastro realizado com sucesso!');
       navigation.navigate('Login');
-    } else {
+    } catch (error) {
+      console.error('Erro ao salvar usuário:', error);
       Alert.alert('Erro', 'Falha ao salvar os dados!');
     }
   };
@@ -47,48 +63,48 @@ export default function RegisterScreen({ navigation }: any) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme === 'dark' ? '#121212' : '#EAF2F8',
+      backgroundColor: isDark ? '#0D1117' : '#F3F4F6',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: 16,
+      padding: 24,
     },
     card: {
-      backgroundColor: theme === 'dark' ? '#1E1E1E' : '#FFFFFF',
+      backgroundColor: isDark ? '#1F2937' : '#FFFFFF',
       width: '100%',
-      borderRadius: 10,
-      padding: 24,
+      borderRadius: 16,
+      padding: 28,
       shadowColor: '#000',
       shadowOpacity: 0.1,
       shadowRadius: 10,
-      elevation: 5,
+      elevation: 6,
     },
     titulo: {
       fontSize: 26,
-      fontWeight: 'bold',
-      color: theme === 'dark' ? '#fff' : '#2E86DE',
-      marginBottom: 8,
+      fontWeight: '700',
+      color: '#FF6F00',
+      marginBottom: 6,
       textAlign: 'center',
     },
     subtitulo: {
-      fontSize: 14,
-      color: theme === 'dark' ? '#bbb' : '#566573',
+      fontSize: 15,
+      color: isDark ? '#9CA3AF' : '#566573',
       textAlign: 'center',
       marginBottom: 24,
     },
     input: {
       height: 50,
-      borderColor: '#D6DBDF',
+      borderRadius: 10,
+      paddingHorizontal: 16,
+      marginBottom: 16,
+      backgroundColor: isDark ? '#21262D' : '#FFFFFF',
+      color: isDark ? '#F9FAFB' : '#2C3E50',
       borderWidth: 1,
-      borderRadius: 8,
-      paddingHorizontal: 15,
-      marginBottom: 12,
-      backgroundColor: theme === 'dark' ? '#2C2C2C' : '#FDFEFE',
-      color: theme === 'dark' ? '#fff' : '#2C3E50',
+      borderColor: isDark ? '#444' : '#D6DBDF',
     },
     botao: {
-      backgroundColor: '#28B463',
+      backgroundColor: '#003366',
       paddingVertical: 14,
-      borderRadius: 8,
+      borderRadius: 10,
       alignItems: 'center',
       marginTop: 4,
     },
@@ -98,8 +114,8 @@ export default function RegisterScreen({ navigation }: any) {
       fontWeight: '600',
     },
     link: {
-      marginTop: 16,
-      color: '#2980B9',
+      marginTop: 20,
+      color: '#FF6F00',
       textAlign: 'center',
       fontSize: 14,
       textDecorationLine: 'underline',
@@ -118,14 +134,14 @@ export default function RegisterScreen({ navigation }: any) {
         <TextInput
           style={styles.input}
           placeholder="Nome"
-          placeholderTextColor="#999"
+          placeholderTextColor={isDark ? '#888' : '#999'}
           value={nome}
           onChangeText={setNome}
         />
         <TextInput
           style={styles.input}
           placeholder="E-mail"
-          placeholderTextColor="#999"
+          placeholderTextColor={isDark ? '#888' : '#999'}
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
@@ -133,7 +149,7 @@ export default function RegisterScreen({ navigation }: any) {
         <TextInput
           style={styles.input}
           placeholder="Senha"
-          placeholderTextColor="#999"
+          placeholderTextColor={isDark ? '#888' : '#999'}
           value={senha}
           onChangeText={setSenha}
           secureTextEntry
@@ -141,7 +157,7 @@ export default function RegisterScreen({ navigation }: any) {
         <TextInput
           style={styles.input}
           placeholder="Data de nascimento (DD/MM/AAAA)"
-          placeholderTextColor="#999"
+          placeholderTextColor={isDark ? '#888' : '#999'}
           value={nascimento}
           onChangeText={setNascimento}
         />

@@ -1,4 +1,3 @@
-// src/screens/SettingsScreen.tsx
 import React from 'react';
 import {
   View,
@@ -6,7 +5,7 @@ import {
   StyleSheet,
   Switch,
   ScrollView,
-  Platform
+  Platform,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useTheme } from '../context/ThemeContext';
@@ -22,31 +21,31 @@ export default function SettingsScreen() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: isDark ? '#121212' : '#F2F5F9',
-      padding: 16,
+      backgroundColor: isDark ? '#0D1117' : '#F3F4F6',
+      padding: 24,
     },
     header: {
       fontSize: 28,
       fontWeight: '700',
-      color: isDark ? '#fff' : '#333',
+      color: '#FF6F00',
       marginVertical: 12,
       textAlign: 'center',
     },
     card: {
-      backgroundColor: isDark ? '#1E1E1E' : '#FFFFFF',
-      borderRadius: 12,
-      padding: 16,
-      marginBottom: 16,
+      backgroundColor: isDark ? '#1F2937' : '#FFFFFF',
+      borderRadius: 16,
+      padding: 20,
+      marginBottom: 24,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 3 },
-      shadowOpacity: 0.2,
-      shadowRadius: 4,
-      elevation: 4,
+      shadowOpacity: 0.1,
+      shadowRadius: 6,
+      elevation: 6,
     },
     sectionTitle: {
       fontSize: 20,
       fontWeight: '600',
-      color: isDark ? '#EEE' : '#444',
+      color: '#FF6F00',
       marginBottom: 12,
     },
     item: {
@@ -67,14 +66,14 @@ export default function SettingsScreen() {
       borderRadius: 8,
       overflow: 'hidden',
       backgroundColor: isDark ? '#2A2A2A' : '#FFF',
-      height: 56,                // aumentou a altura
-      justifyContent: 'center',  // centro vertical
-      paddingHorizontal: 12,     // espaçamento nas laterais
+      height: 56,
+      justifyContent: 'center',
+      paddingHorizontal: 12,
       marginTop: 8,
     },
     picker: {
-      height: '100%',            // ocupa toda a altura do wrapper
-      width: '100%',             // ocupa toda a largura
+      height: '100%',
+      width: '100%',
       color: isDark ? '#fff' : '#000',
     },
   });
@@ -91,7 +90,7 @@ export default function SettingsScreen() {
           <Switch
             value={notificacoes}
             onValueChange={setNotificacoes}
-            trackColor={{ false: '#767577', true: '#4A90E2' }}
+            trackColor={{ false: '#767577', true: '#003366' }}
             thumbColor={notificacoes ? '#fff' : undefined}
           />
         </View>
@@ -101,7 +100,7 @@ export default function SettingsScreen() {
           <Switch
             value={isDark}
             onValueChange={toggleTheme}
-            trackColor={{ false: '#767577', true: '#4A90E2' }}
+            trackColor={{ false: '#767577', true: '#003366' }}
             thumbColor={isDark ? '#fff' : undefined}
           />
         </View>
@@ -111,7 +110,7 @@ export default function SettingsScreen() {
           <Switch
             value={atualizacoesAuto}
             onValueChange={setAtualizacoesAuto}
-            trackColor={{ false: '#767577', true: '#4A90E2' }}
+            trackColor={{ false: '#767577', true: '#003366' }}
             thumbColor={atualizacoesAuto ? '#fff' : undefined}
           />
         </View>
