@@ -191,7 +191,7 @@ export default function HomeScreen({ navigation }: any) {
             <Text style={styles.saudacaoHeader}>
               Olá, {usuario?.nome || 'Usuário'}
             </Text>
-            <Text style={styles.subtextHeader}>Ag ••46 conta •••12-8</Text>
+            <Text style={styles.subtextHeader}>Vamos investir hoje?</Text>
           </View>
         </View>
 

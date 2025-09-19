@@ -8,18 +8,19 @@ export default function WelcomeScreen({ navigation }: any) {
       {/* Marca no topo esquerdo */}
       <View style={styles.brandHeader}>
         <Ionicons name="logo-usd" size={28} color="#111" style={styles.brandIcon} />
-        <Text style={styles.brandText}>$MART INVEST</Text>
+        <Text style={styles.brandText}>SMART INVEST</Text>
+        
       </View>
 
       {/* Parte superior - Laranja Itaú */}
       <View style={styles.topSection}>
-        <Text style={styles.title}>Plante suas moedas e colha sua fortuna.</Text>
+        <Text style={styles.title}>Plante suas moedas e colha sua fortuna.                            </Text>
       </View>
 
       {/* Parte inferior - Azul escuro Itaú */}
       <View style={styles.bottomSection}>
         <View style={styles.subtitleBox}>
-          <Text style={styles.subtitle}>Simplifique sua vida financeira de uma maneira fácil.</Text>
+          <Text style={styles.subtitle}>Simplifique sua vida financeira de maneira inteligente.</Text>
         </View>
 
         <View style={styles.buttonBox}>
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
   brandHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 30,
+    paddingHorizontal: 90,
     paddingTop: 40,
     paddingBottom: 12,
     backgroundColor: '#fff',
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 50,
     fontWeight: '800',
-    color: '#111',
+    color: '#fff',
     textAlign: 'left',
     lineHeight: 54,
   },
@@ -90,11 +91,12 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 28,
     color: '#111',
-    fontWeight: '800',
+    fontWeight: '400',
     textAlign: 'left',
     alignSelf: 'flex-start',
     marginLeft: 0,
     lineHeight: 32,
+
   },
   buttonBox: {
     flexDirection: 'row',
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
   btnPrincipal: {
     flex: 1,
     backgroundColor: '#111',
-    paddingVertical: 14,
+    paddingVertical: 17,
     borderRadius: 10,
     marginLeft: 8,
     alignItems: 'center',

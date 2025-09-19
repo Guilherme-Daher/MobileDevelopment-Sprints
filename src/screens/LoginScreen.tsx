@@ -136,12 +136,12 @@ export default function LoginScreen({ navigation }: any) {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <View style={styles.iconHeader}>
-      <Ionicons name="airplane-outline" size={48} color="#FF6F00" />
+      <Ionicons name="logo-usd" size={48} color="#FF6F00" />
          <Text style={styles.titulo}>Smart Invest</Text>
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.titulo}>Bem-vindo</Text>
+        <Text style={styles.titulo}>Bem-Vindo </Text>
         <Text style={styles.subtitulo}>Sua jornada financeira começa aqui</Text>
         <Text style={styles.frase}>“Investir é transformar sonhos em planos.”</Text>
 
